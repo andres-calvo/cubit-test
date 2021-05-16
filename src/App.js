@@ -1,5 +1,7 @@
+import { Container } from "@material-ui/core";
+
 function App() {
-  return <div className="App"></div>;
+  return <Container></Container>;
 }
 
 export default App;
