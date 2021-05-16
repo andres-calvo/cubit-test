@@ -1,23 +1,41 @@
-import { Box, Grid, Link, makeStyles } from "@material-ui/core";
+import { Box, Grid, Link, makeStyles, useTheme } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
+
 import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useState } from "react";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: "0px 1rem",
     alignItems: "center",
     justifyContent: "space-between",
   },
-});
+  nav: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "flex",
+      "& a": {
+        margin: "0 8px",
+      },
+    },
+  },
+  nav_open: {
+    display: "block",
+    position: "absolute",
+    top: "10px",
+    left: "0px",
+  },
+}));
 
-function Navigation() {
+function Navigation(props) {
   const [open, setOpen] = useState(false);
-
   return (
     <Box>
-      {open ? <CloseIcon onClick={() => setOpen(!open)}></CloseIcon> : <MenuIcon onClick={() => setOpen(!open)}></MenuIcon>}
+      <Box display={{ xs: "block", sm: "none" }}>
+        {open ? <CloseIcon onClick={() => setOpen(!open)}></CloseIcon> : <MenuIcon onClick={() => setOpen(!open)}></MenuIcon>}
+      </Box>
+
       <Box>
         <Link component={RouterLink} to="/">
           Home
@@ -31,11 +49,12 @@ function Navigation() {
 }
 
 function Header() {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   return (
     <Grid container className={classes.root}>
       <h1>Test</h1>
-      <Navigation></Navigation>
+      <Navigation props={{ theme, classes }}></Navigation>
     </Grid>
   );
 }
