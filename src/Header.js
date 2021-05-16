@@ -1,5 +1,8 @@
 import { Box, Grid, Link, makeStyles } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
+import CloseIcon from "@material-ui/icons/Close";
+import MenuIcon from "@material-ui/icons/Menu";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -10,8 +13,11 @@ const useStyles = makeStyles({
 });
 
 function Navigation() {
+  const [open, setOpen] = useState(false);
+
   return (
     <Box>
+      {open ? <CloseIcon onClick={() => setOpen(!open)}></CloseIcon> : <MenuIcon onClick={() => setOpen(!open)}></MenuIcon>}
       <Box>
         <Link component={RouterLink} to="/">
           Home
