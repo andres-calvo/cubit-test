@@ -1,4 +1,5 @@
 import { Box, Grid, Link, makeStyles, useTheme } from "@material-ui/core";
+import Slide from "@material-ui/core/Slide";
 import { Link as RouterLink } from "react-router-dom";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -70,14 +71,16 @@ function Navigation(props) {
         {open ? <CloseIcon onClick={() => openMenu()}></CloseIcon> : <MenuIcon onClick={() => openMenu()}></MenuIcon>}
       </Box>
 
-      <Box className={`${props.classes.nav} ${toggleClass(open)}`}>
-        <Link component={RouterLink} to="/">
-          Home
-        </Link>
-        <Link component={RouterLink} to="/question">
-          Question
-        </Link>
-      </Box>
+      <Slide direction="left" in={open} mountOnEnter unmountOnExit>
+        <Box className={`${props.classes.nav} ${toggleClass(open)}`}>
+          <Link component={RouterLink} to="/">
+            Home
+          </Link>
+          <Link component={RouterLink} to="/question">
+            Question
+          </Link>
+        </Box>
+      </Slide>
     </React.Fragment>
   );
 }
