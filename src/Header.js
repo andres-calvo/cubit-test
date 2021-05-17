@@ -1,5 +1,4 @@
-import { Box, Grid, Link, makeStyles, useTheme } from "@material-ui/core";
-import Slide from "@material-ui/core/Slide";
+import { Box, Grid, Link, makeStyles, useTheme, Slide, useMediaQuery } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -18,16 +17,17 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "flex-start",
     },
   },
+  navDesktop: {
+    display: "flex",
+    position: "relative",
+    marginLeft: "25%",
+    "& a": {
+      margin: "0 16px",
+    },
+  },
   nav: {
     display: "none",
     borderLeft: "1px solid #d4d4d4",
-    [theme.breakpoints.up("sm")]: {
-      display: "flex",
-      marginLeft: "25%",
-      "& a": {
-        margin: "0 16px",
-      },
-    },
   },
   nav_open: {
     display: "flex",
@@ -41,14 +41,7 @@ const useStyles = makeStyles((theme) => ({
     top: "80px",
     right: "0px",
     "& a": {
-      margin: "8px 0px",
-    },
-
-    [theme.breakpoints.up("sm")]: {
-      display: "flex",
-      position: "relative",
-      top: "0",
-      left: "0",
+      margin: "20px 0px",
     },
   },
   nav_close: {
@@ -56,9 +49,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Navigation(props) {
+function NavigationMobile(props) {
   const [open, setOpen] = useState(false);
-  console.log(props);
   function toggleClass(openState) {
     return openState ? props.classes.nav_open : props.classes.nav_close;
   }
@@ -84,14 +76,33 @@ function Navigation(props) {
     </React.Fragment>
   );
 }
+function Navigation(props) {
+  return (
+    <React.Fragment>
+      <Box className={props.classes.navDesktop}>
+        <Link component={RouterLink} to="/">
+          Home
+        </Link>
+        <Link component={RouterLink} to="/question">
+          Question
+        </Link>
+      </Box>
+    </React.Fragment>
+  );
+}
 
 function Header() {
   const theme = useTheme();
   const classes = useStyles(theme);
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
   return (
     <Grid container className={classes.root}>
       <h1>Test</h1>
-      <Navigation width="100%" theme={theme} classes={classes}></Navigation>
+      {!matches ? (
+        <NavigationMobile width="100%" theme={theme} classes={classes}></NavigationMobile>
+      ) : (
+        <Navigation theme={theme} classes={classes}></Navigation>
+      )}
     </Grid>
   );
 }
