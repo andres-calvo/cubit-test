@@ -1,11 +1,8 @@
-import { Container, makeStyles, useTheme } from "@material-ui/core";
+import { Container, makeStyles, Paper, useTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     marginTop: "20px",
-    padding: "16px",
-    border: "1px solid #d4d4d4",
-    boxShadow: "-10px 0px 5px 0px rgba(0,0,0,0.26),10px 0px 5px 0px rgba(0,0,0,0.26)",
   },
 }));
 function Home() {
@@ -13,7 +10,7 @@ function Home() {
   const classes = useStyles(themes);
   return (
     <Container className={classes.wrapper} maxWidth="sm">
-      Hello
+      <Paper elevation={4}>Hello</Paper>
     </Container>
   );
 }
