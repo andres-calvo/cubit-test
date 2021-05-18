@@ -1,6 +1,7 @@
 import { Container, makeStyles, Paper, useTheme } from "@material-ui/core";
 import CardUser from "../components/CardUser";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     marginTop: "20px",
@@ -24,6 +25,18 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
   const themes = useTheme();
   const classes = useStyles(themes);
+  // Api
+  const [page, setPage] = useState(1);
+  const [listUsers, setListUsers] = useState({});
+
+  useEffect(() => {
+    const customHeader = { "cubit-test": "Andres Calvo Ariza" };
+    async function fetchData() {
+      const result = await axios.get(`https://reqres.in/api/users?page=${page}`, { headers: customHeader });
+      setListUsers(result);
+    }
+    fetchData();
+  }, [page]);
   return (
     <Container className={classes.wrapper} maxWidth="sm">
       <Paper elevation={4} className={classes.paper}>
