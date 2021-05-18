@@ -24,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     "& a": {
       margin: "0 10%",
+      padding: "1em",
+      "&:hover": {
+        background: "#3f51b5",
+        color: "white",
+        borderRadius: "0.5em",
+        transition: "border-radius 0.3s",
+      },
     },
   },
   nav: {
@@ -81,10 +88,10 @@ function Navigation(props) {
   return (
     <React.Fragment>
       <Box className={props.classes.navDesktop}>
-        <Link component={RouterLink} to="/">
+        <Link component={RouterLink} to="/" underline="none">
           Home
         </Link>
-        <Link component={RouterLink} to="/question">
+        <Link component={RouterLink} to="/question" underline="none">
           Question
         </Link>
       </Box>

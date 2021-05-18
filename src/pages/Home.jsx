@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     marginTop: "20px",
+    marginBottom: "20px",
   },
   paper: {
     display: "flex",
