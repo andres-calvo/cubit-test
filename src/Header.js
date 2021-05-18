@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
   navDesktop: {
     display: "flex",
     position: "relative",
-    marginLeft: "25%",
+    width: "calc(100% - 200px)",
+    justifyContent: "center",
     "& a": {
-      margin: "0 16px",
+      margin: "0 10%",
     },
   },
   nav: {
