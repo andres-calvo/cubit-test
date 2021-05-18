@@ -8,16 +8,29 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "200px",
+    height: "17em",
     marginBottom: "16px",
+
     [theme.breakpoints.up("sm")]: {
       marginBottom: "16px",
+      alignSelf: "flex-start",
     },
+  },
+  cardMedia: {
+    widows: "100%",
+    height: "8em",
+    objectFit: "cover",
   },
   cardText: {
     marginTop: "16px",
   },
   cardActions: {
     padding: "16px 0",
+  },
+  dialogContent: {
+    display: "flex",
+    flexFlow: "column nowrap",
+    alignItems: "center",
   },
   emailWrapper: {
     display: "flex",
@@ -47,12 +60,12 @@ function CardUser(props) {
   const theme = useTheme();
   const classes = useStyles(theme);
   var name = `${props.first_name} ${props.last_name}`;
-  var email = "andrescalvo@gmail.com";
+  var email = props.email;
   return (
     <React.Fragment>
       <Card className={classes.card} elevation={8}>
         <CardContent>
-          <CardMedia component="img" image={props.src}></CardMedia>
+          <CardMedia component="img" image={props.src} className={classes.cardMedia}></CardMedia>
           <Typography variant="h6" className={classes.cardText}>
             {name}
           </Typography>
@@ -71,7 +84,7 @@ function CardUser(props) {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogContent>
+        <DialogContent className={classes.dialogContent}>
           <img src={props.src} className={classes.modalImg} alt="Imagen perfil"></img>
           <Typography variant="h6">{name}</Typography>
           <div className={classes.emailWrapper}>
