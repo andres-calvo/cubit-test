@@ -22,10 +22,18 @@ const useStyles = makeStyles((theme) => ({
   emailWrapper: {
     display: "flex",
     alignItems: "center",
-    marginBottom: "16px",
-    "& span": {
+    margin: "16px 0",
+    "& h6": {
       marginLeft: "16px",
     },
+  },
+  modalImg: {
+    objectFit: "contain",
+    maxWidth: "100%",
+    maxHeight: "100%",
+    width: "auto",
+    height: "auto",
+    marginBottom: "16px",
   },
 }));
 function CardUser(props) {
@@ -45,7 +53,7 @@ function CardUser(props) {
       <Card className={classes.card} elevation={8}>
         <CardContent>
           <CardMedia component="img" image={props.src}></CardMedia>
-          <Typography component="p" className={classes.cardText}>
+          <Typography variant="h6" className={classes.cardText}>
             {name}
           </Typography>
           <CardActions className={classes.cardActions}>
@@ -64,11 +72,11 @@ function CardUser(props) {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogContent>
-          <img src={props.src} alt="Imagen perfil"></img>
-          <p>{name}</p>
+          <img src={props.src} className={classes.modalImg} alt="Imagen perfil"></img>
+          <Typography variant="h6">{name}</Typography>
           <div className={classes.emailWrapper}>
-            <ContactMailIcon color="primary"></ContactMailIcon>
-            <span>{email}</span>
+            <ContactMailIcon color="primary" fontSize="large"></ContactMailIcon>
+            <Typography variant="h6">{email}</Typography>
           </div>
         </DialogContent>
       </Dialog>
