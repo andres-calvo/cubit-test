@@ -1,4 +1,5 @@
 import { Container, makeStyles, Paper, useTheme } from "@material-ui/core";
+import Pagination from "@material-ui/lab/Pagination";
 import CardUser from "../components/CardUser";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -25,8 +26,12 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
   const themes = useTheme();
   const classes = useStyles(themes);
-  // Api
+  // API
   const [page, setPage] = useState(1);
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
   const [listUsers, setListUsers] = useState({});
 
   useEffect(() => {
@@ -37,6 +42,7 @@ function Home() {
     }
     fetchData();
   }, [page]);
+
   return (
     <Container className={classes.wrapper} maxWidth="sm">
       <Paper elevation={4} className={classes.paper}>
@@ -55,6 +61,7 @@ function Home() {
           last_name="calvo"
           src={"https://images.pexels.com/photos/1210273/pexels-photo-1210273.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
         ></CardUser>
+        <Pagination count={listUsers.total_pages} page={page} onChange={handlePageChange} />
       </Paper>
     </Container>
   );
