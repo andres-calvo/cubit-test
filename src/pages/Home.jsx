@@ -40,7 +40,7 @@ function Home() {
     setPage(value);
   };
 
-  const [listUsers, setListUsers] = useState({});
+  const [listUsers, setListUsers] = useState({ data: [] });
 
   useEffect(() => {
     const customHeader = { "cubit-test": "Andres Calvo Ariza" };
@@ -50,26 +50,22 @@ function Home() {
     }
     fetchData();
   }, [page]);
-  console.log(listUsers);
   return (
     <Container className={classes.wrapper} maxWidth="sm">
       <Paper elevation={4} className={classes.paper}>
         <Box className={classes.usersWrapper}>
-          <CardUser
-            first_name="andres"
-            last_name="calvo"
-            src={"https://images.pexels.com/photos/1210273/pexels-photo-1210273.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
-          ></CardUser>
-          <CardUser
-            first_name="andres"
-            last_name="calvo"
-            src={"https://images.pexels.com/photos/1210273/pexels-photo-1210273.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
-          ></CardUser>
-          <CardUser
-            first_name="andres"
-            last_name="calvo"
-            src={"https://images.pexels.com/photos/1210273/pexels-photo-1210273.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
-          ></CardUser>
+          {listUsers.data.map((user, key) => {
+            return (
+              <CardUser
+                key={key}
+                id={user.id}
+                first_name={user.first_name}
+                last_name={user.last_name}
+                email={user.email}
+                src={user.avatar}
+              ></CardUser>
+            );
+          })}
         </Box>
         <Pagination className={classes.pagination} count={listUsers.total_pages} page={page} onChange={handlePageChange} />
       </Paper>
