@@ -1,9 +1,10 @@
-import { Box, Grid, Link, makeStyles, useTheme, Slide, useMediaQuery } from "@material-ui/core";
+import { Box, Grid, Link, makeStyles, useTheme, useMediaQuery } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 
 import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +58,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const buttonVariants = {
+  open: {
+    rotate: 360,
+  },
+  closed: {
+    rotate: 0,
+  },
+};
+
+const navVariants = {
+  open: {
+    opacity: 1,
+    x: 0,
+  },
+  closed: {
+    opacity: 0,
+    x: "-100%",
+  },
+};
+
 function NavigationMobile(props) {
   const [open, setOpen] = useState(false);
   function toggleClass(openState) {
@@ -67,20 +88,18 @@ function NavigationMobile(props) {
   }
   return (
     <React.Fragment>
-      <Box display={{ xs: "block", sm: "none" }}>
+      <motion.div animate={open ? "open" : "closed"} variants={buttonVariants} display={{ xs: "block", sm: "none" }}>
         {open ? <CloseIcon onClick={() => openMenu()}></CloseIcon> : <MenuIcon onClick={() => openMenu()}></MenuIcon>}
-      </Box>
+      </motion.div>
 
-      <Slide direction="left" in={open} mountOnEnter unmountOnExit>
-        <Box className={`${props.classes.nav} ${toggleClass(open)}`}>
-          <Link component={RouterLink} to="/">
-            Home
-          </Link>
-          <Link component={RouterLink} to="/question">
-            Question
-          </Link>
-        </Box>
-      </Slide>
+      <motion.div animate={open ? "open" : "closed"} variants={navVariants} className={`${props.classes.nav} ${toggleClass(open)}`}>
+        <Link component={RouterLink} to="/">
+          Home
+        </Link>
+        <Link component={RouterLink} to="/question">
+          Question
+        </Link>
+      </motion.div>
     </React.Fragment>
   );
 }
